@@ -8,7 +8,7 @@
 
 .movie-poster {
     width: 100%; /* Set width of the poster */
-    height: 100%;
+    height: auto;
 }
 
 .movie-details {
