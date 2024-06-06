@@ -1,0 +1,51 @@
+/* Appbar.css */
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+
+.title {
+    margin-right: auto; /* This will push the search container to the right */
+}
+
+.search-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.search {
+    position: relative;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.15);
+    display: flex; /* Use display: flex */
+    align-items: center; /* Align the icon and input vertically */
+    height: 40px;
+}
+
+.search:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.searchIcon {
+    padding: 0 12px; /* Adjust padding as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* Make sure the icon doesn't interfere with input interactions */
+    color: hsla(0,0%,13%,0.5);
+}
+
+.inputRoot {
+    color: inherit;
+    width: 100%; /* Set width to 100% */
+}
+
+.inputInput {
+    padding: 8px 8px 8px 0;
+    transition: width 300ms;
+    width: calc(100% - 24px); /* Adjust width to leave space for the icon */
+}

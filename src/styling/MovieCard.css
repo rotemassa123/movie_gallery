@@ -1,0 +1,18 @@
+/* MovieCard.css */
+
+.movie-card {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px; /* Adjust spacing between cards */
+}
+
+.movie-poster {
+    width: 100%; /* Set width of the poster */
+    height: 100%;
+}
+
+.movie-details {
+    flex-grow: 1; /* Take up remaining space */
+    padding: 16px;
+}
+
