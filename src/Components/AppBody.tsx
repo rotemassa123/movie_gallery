@@ -23,7 +23,9 @@ const AppBody: React.FC = () => {
         <Box>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={2}>
-                    <Box className="column">Left Column</Box>
+                    <Box className="column" mb={2}> {/* Add margin bottom */}
+                        Left Column
+                    </Box>
                 </Grid>
                 <Grid item xs={12} md={8}>
                     <Box className="column">
@@ -31,19 +33,20 @@ const AppBody: React.FC = () => {
                             <MovieCard key={index} movie={movie} />
                         ))}
                     </Box>
-                    <Box className="pagination" mt={2}> {/* Add margin top */}
+                    <Box className="pagination" mt={2}>
                         <Pagination
                             count={totalPages}
                             page={currentPage}
                             onChange={handlePageChange}
                             variant="outlined"
                             shape="rounded"
-                            boundaryCount={1} // Set boundaryCount to 1
                         />
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={2}>
-                    <Box className="column">Right Column</Box>
+                    <Box className="column" mb={2}> {/* Add margin bottom */}
+                        Right Column
+                    </Box>
                 </Grid>
             </Grid>
         </Box>

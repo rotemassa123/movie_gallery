@@ -3,3 +3,7 @@
   padding: 16px;
   border-top: 1px solid lightgrey; /* Add this line */
 }
+
+.app {
+  margin-bottom: 16px;
+}
