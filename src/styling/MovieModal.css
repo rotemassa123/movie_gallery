@@ -1,0 +1,25 @@
+.modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+    border-radius: 8px; /* Add rounded corners */
+    padding: 16px;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-poster {
+    width: 100%;
+    max-width: 150px; /* Set fixed width for all posters */
+    max-height: 300px; /* Set fixed height for all posters */
+    margin-bottom: 16px;
+    border-radius: 8px; /* Add rounded corners to the poster */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow to the poster */
+}

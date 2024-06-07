@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import '../styling/MovieCard.css';
-import { Movie } from "../interfaces/Movie"; // Create a CSS file for styling
+import { Movie } from "../interfaces/Movie";
+import MovieModal from "./MovieModal";
 
 const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
     const { title, vote_average, release_date, overview, poster_path } = movie;
+    const [isMovieModalOpen, setIsMovieModalOpen] = useState(false);
 
     // Get the release year from the release date
     const releaseYear = new Date(release_date).getFullYear();
 
     return (
-        <Card className="movie-card">
+        <>
+        <Card className="movie-card" onClick={() => setIsMovieModalOpen(true)}>
             <CardMedia
                 className="movie-poster"
                 image={`https://image.tmdb.org/t/p/w500/${poster_path}`}
@@ -34,6 +37,8 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
                 </CardContent>
             </div>
         </Card>
+        <MovieModal movie={movie} isOpen={isMovieModalOpen} handleClose={() => setIsMovieModalOpen(false)}/>
+    </>
     );
 };
 
