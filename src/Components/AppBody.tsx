@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, Grid, Pagination } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieCard from './MovieCard';
@@ -15,24 +15,11 @@ const AppBody: React.FC = () => {
     const movies = useSelector((state: RootState) => state.movie.movies);
     const totalPages = useSelector((state: RootState) => state.movie.totalPages);
 
-    useEffect(() => {
-        const fetchInitialMovies = async () => {
-            try {
-                const response = await getTopRatedMovies();
-                dispatch(setMovies(response.data.results));
-            } catch (error) {
-                console.error('Error fetching initial movies:', error);
-            }
-        };
-
-        fetchInitialMovies();
-    }, [dispatch]);
-
     const handlePageChange = async (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPageLocal(value);
         try {
             const response = await getTopRatedMovies(value);
-            dispatch(setMovies(response.data.results));
+            dispatch(setMovies(response.results));
         } catch (error) {
             console.error('Error fetching movies for page:', value, error);
         }
