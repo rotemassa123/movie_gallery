@@ -8,14 +8,16 @@ const tmdbApiClient = axios.create({
     baseURL: BASE_URL,
     params: {
         api_key: API_KEY,
+        sort_by: 'vote_average.desc'
     },
 });
 
-export async function getMovies(page: number = 1, filters?: Partial<Filters>) {
+export async function getMovies(page: number = 1, filters?: any) {
     try {
         let response;
         const params: Record<string, any> = { page, ...filters };
-        if(!filters?.primary_release_date_lte && !filters?.primary_release_date_gte){
+        const areFiltersOn = Object.values(filters).some(value => Boolean(value));
+        if(!areFiltersOn){
             response = await tmdbApiClient.get('/movie/top_rated', { params });
         } else {
             response = await tmdbApiClient.get('/discover/movie', { params });
