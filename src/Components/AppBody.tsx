@@ -1,22 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Grid, Pagination } from '@mui/material';
-import MovieCard from './MovieCard'; // Assuming MovieCard component is in the same directory
-import movies from '../fixtures/movies.json'; // Import movies from JSON file
-import '../styling/App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import MovieCard from './MovieCard';
+import { getTopRatedMovies } from '../helpers/AxiosClient';
+import { setMovies } from "../reducers/movies.reducer";
+import { Movie } from "../interfaces/Movie";
+import { RootState } from '../store';
 
 const AppBody: React.FC = () => {
-    const itemsPerPage = 8;
-    const [currentPage, setCurrentPage] = useState(1);
+    const dispatch = useDispatch();
+    const [currentPage, setCurrentPageLocal] = useState<number>(1);
 
-    const totalItems = movies.length;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    // Correctly use the root state type
+    const movies = useSelector((state: RootState) => state.movie.movies);
+    const totalPages = useSelector((state: RootState) => state.movie.totalPages);
 
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-    const currentMovies = movies.slice(startIndex, endIndex);
+    useEffect(() => {
+        const fetchInitialMovies = async () => {
+            try {
+                const response = await getTopRatedMovies();
+                dispatch(setMovies(response.data.results));
+            } catch (error) {
+                console.error('Error fetching initial movies:', error);
+            }
+        };
 
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setCurrentPage(value);
+        fetchInitialMovies();
+    }, [dispatch]);
+
+    const handlePageChange = async (event: React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPageLocal(value);
+        try {
+            const response = await getTopRatedMovies(value);
+            dispatch(setMovies(response.data.results));
+        } catch (error) {
+            console.error('Error fetching movies for page:', value, error);
+        }
     };
 
     return (
@@ -29,7 +48,7 @@ const AppBody: React.FC = () => {
                 </Grid>
                 <Grid item xs={12} md={8}>
                     <Box className="column">
-                        {currentMovies.map((movie, index) => (
+                        {movies.map((movie: Movie, index: number) => (
                             <MovieCard key={index} movie={movie} />
                         ))}
                     </Box>
