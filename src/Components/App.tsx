@@ -5,7 +5,7 @@ import Appbar from './Appbar';
 import AppBody from './AppBody';
 import { Box } from '@mui/material';
 import { setMovies, setTotalPages } from '../reducers/movies.reducer';
-import { getTopRatedMovies } from '../helpers/AxiosClient';
+import { getTopRatedMovies } from '../helpers/TmdbClient';
 
 const App: React.FC = () => {
     const dispatch = useDispatch();

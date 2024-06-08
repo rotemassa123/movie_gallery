@@ -21,4 +21,13 @@ export async function getTopRatedMovies(page: number = 1, filters?: Partial<Filt
     }
 }
 
+export async function getMoviesByName(movieName: string){
+    try{
+        const response = await tmdbApiClient.get('/search/movie', { params: { query: movieName } });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error fetching movie by name');
+    }
+}
+
 export default tmdbApiClient;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Grid, Pagination } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieCard from './MovieCard';
-import { getTopRatedMovies } from '../helpers/AxiosClient';
+import { getTopRatedMovies } from '../helpers/TmdbClient';
 import { setMovies } from "../reducers/movies.reducer";
 import { Movie } from "../interfaces/Movie";
 import { RootState } from '../store';
