@@ -24,7 +24,7 @@ const Appbar: React.FC = () => {
     };
 
     const onSearch = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && searchQuery !== '') {
             const response = await getMoviesByName(searchQuery);
             dispatch(setMovies(response.results));
             dispatch(setTotalPages(response.total_pages));
