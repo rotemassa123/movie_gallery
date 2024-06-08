@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Grid, Pagination } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieCard from './MovieCard';
-import { getTopRatedMovies } from '../helpers/TmdbClient';
+import { getMovies } from '../helpers/TmdbClient';
 import { setMovies } from "../reducers/movies.reducer";
 import { Movie } from "../interfaces/Movie";
 import { RootState } from '../store';
@@ -18,7 +18,7 @@ const AppBody: React.FC = () => {
     const handlePageChange = async (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPageLocal(value);
         try {
-            const response = await getTopRatedMovies(value);
+            const response = await getMovies(value);
             dispatch(setMovies(response.results));
         } catch (error) {
             console.error('Error fetching movies for page:', value, error);

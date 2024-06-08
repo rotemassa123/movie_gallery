@@ -2,7 +2,7 @@ import { AppBar, InputBase, Toolbar, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import '../styling/Appbar.css';
-import {getMoviesByName, getTopRatedMovies} from "../helpers/TmdbClient";
+import {getMoviesByName, getMovies} from "../helpers/TmdbClient";
 import {setMovies, setTotalPages} from "../reducers/movies.reducer";
 import {useDispatch} from "react-redux";
 
@@ -14,7 +14,7 @@ const Appbar: React.FC = () => {
         setSearchQuery(event.target.value);
         if(event.target.value === ''){
             try {
-                const response = await getTopRatedMovies();
+                const response = await getMovies();
                 dispatch(setMovies(response.results));
                 dispatch(setTotalPages(response.total_pages));
             } catch (error) {

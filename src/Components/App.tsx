@@ -5,7 +5,7 @@ import Appbar from './Appbar';
 import AppBody from './AppBody';
 import { Box } from '@mui/material';
 import { setMovies, setTotalPages } from '../reducers/movies.reducer';
-import { getTopRatedMovies } from '../helpers/TmdbClient';
+import { getMovies } from '../helpers/TmdbClient';
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const App: React.FC = () => {
     useEffect(() => {
         const fetchInitialMovies = async () => {
             try {
-                const response = await getTopRatedMovies();
+                const response = await getMovies();
                 dispatch(setMovies(response.results));
                 dispatch(setTotalPages(response.total_pages));
             } catch (error) {

@@ -11,10 +11,16 @@ const tmdbApiClient = axios.create({
     },
 });
 
-export async function getTopRatedMovies(page: number = 1, filters?: Partial<Filters>) {
+export async function getMovies(page: number = 1, filters?: Partial<Filters>) {
     try {
+        let response;
         const params: Record<string, any> = { page, ...filters };
-        const response = await tmdbApiClient.get('/movie/top_rated', { params });
+        if(!filters?.primary_release_date_lte && !filters?.primary_release_date_gte){
+            response = await tmdbApiClient.get('/movie/top_rated', { params });
+        } else {
+            response = await tmdbApiClient.get('/discover/movie', { params });
+        }
+
         return response.data;
     } catch (error) {
         throw new Error(`Error fetching top rated movies`);
