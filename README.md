@@ -11,6 +11,7 @@ Welcome to Movie Gallery, a React application for exploring and discovering movi
 6. [Building the Application](#building-the-application)
 7. [Deployment](#deployment)
 8. [Contributing](#contributing)
+9. [personal remarks](#personal-remarks)
 
 ## Introduction
 Movie Explorer is a web application built with React that allows users to explore and discover movies. It utilizes The Movie Database (TMDb) API to fetch movie data, providing users with a wide range of features such as filtering movies by genre and release year, as well as pagination for browsing large collections of movies.
@@ -53,4 +54,12 @@ If you would like to contribute to Movie Explorer, please follow these guideline
 2. Commit your changes (`git commit -am 'Add my feature'`).
 3. Push to the branch (`git push origin feature/myfeature`).
 4. Create a new Pull Request.
+
+## Personal remarks
+dear reader. there are some deviations and features i would have liked to add to my application, but were unable to due to time constraints. among them:
+1. showcase only top-rated movies and not discovery movies (misunderstood the assignment)
+2. testings
+3. deployment
+4. additional movie filters
+5. UI improvements and feature addition (i.e sort movies by XYZ params)
 
