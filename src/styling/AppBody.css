@@ -1,3 +1,16 @@
+.main-container {
+    flex-grow: 1;
+    margin-top: 16px;
+}
+
+.filter-container {
+    padding: 16px;
+}
+
+.movies-grid {
+    padding: 16px;
+}
+
 .MuiPaginationItem-root {
     padding: 6px 8px; /* Adjust as needed */
 }

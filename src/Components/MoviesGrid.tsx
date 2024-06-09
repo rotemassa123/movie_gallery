@@ -6,7 +6,6 @@ import { Movie } from "../interfaces/Movie";
 import { RootState } from '../store';
 import { getMovies } from "../helpers/TmdbClient";
 import { setMovies, setTotalPages } from "../reducers/movies.reducer";
-import '../styling/AppBody.css';
 
 const MoviesGrid: React.FC = () => {
     const dispatch = useDispatch();
