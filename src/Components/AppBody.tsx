@@ -1,46 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Grid, Pagination, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Grid, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers-pro';
-import { useDispatch, useSelector } from 'react-redux';
-import MovieCard from './MovieCard';
-import { Movie } from "../interfaces/Movie";
-import { RootState } from '../store';
+import { useDispatch } from 'react-redux';
 import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { getMovies } from "../helpers/TmdbClient";
-import { setMovies, setTotalPages } from "../reducers/movies.reducer";
+
 import {clearFilters, setGenres, setFilterYear} from "../reducers/filters.reducer";
 import { genreMap } from "../fixtures/GenreMap";
 import '../styling/AppBody.css';
+import MoviesGrid from "./MoviesGrid";
 
 const AppBody: React.FC = () => {
     const dispatch = useDispatch();
-    const [currentPage, setCurrentPageLocal] = useState<number>(1);
     const [year, setYear] = useState<Dayjs | null>(null);
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-
-    // Correctly use the root state type
-    const movies = useSelector((state: RootState) => state.movie.movies);
-    const totalPages = useSelector((state: RootState) => state.movie.totalPages);
-    const filters = useSelector((state: RootState) => state.filters);
-
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                const response = await getMovies(currentPage, filters);
-                dispatch(setMovies(response.results));
-                dispatch(setTotalPages(response.total_pages));
-            } catch (error) {
-                console.error('Error fetching initial movies:', error);
-            }
-        };
-        fetchMovies();
-    }, [dispatch, filters, selectedGenres, currentPage]);
-
-    const handlePageChange = async (event: React.ChangeEvent<unknown>, value: number) => {
-        setCurrentPageLocal(value);
-    };
 
     const handleYearChange = (newValue: Dayjs | null) => {
         setYear(newValue);
@@ -85,7 +59,7 @@ const AppBody: React.FC = () => {
                                     const selectedGenresNames = (selected as string[]).map(id => genreMap[parseInt(id)]);
                                     return selectedGenresNames.join(', ');
                                 }}
-                                label="Genres" // This line ensures the label animates correctly
+                                label="Genres"
                             >
                                 {Object.entries(genreMap).map(([id, name]) => (
                                     <MenuItem key={id} value={id}>
@@ -105,22 +79,7 @@ const AppBody: React.FC = () => {
                         </Button>
                     </Box>
                 </Grid>
-                <Grid item xs={12} md={10}>
-                    <Box className="column">
-                        {movies.map((movie: Movie, index: number) => (
-                            <MovieCard key={index} movie={movie} />
-                        ))}
-                    </Box>
-                    <Box className="pagination" mt={2}>
-                        <Pagination
-                            count={totalPages}
-                            page={currentPage}
-                            onChange={handlePageChange}
-                            variant="outlined"
-                            shape="rounded"
-                        />
-                    </Box>
-                </Grid>
+                <MoviesGrid/>
             </Grid>
         </Box>
     );
