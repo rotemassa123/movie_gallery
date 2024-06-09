@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {Dayjs} from "dayjs";
-import {DateRange} from "@mui/x-date-pickers-pro";
 import {Filters} from "../interfaces/Filters";
+import {Dayjs} from "dayjs";
 
 const initialState: Partial<Filters> = {
-    "primary_release_date.gte": '',
-    "primary_release_date.lte": '',
+    year: null,
     with_genres: ''
 };
 
@@ -13,24 +11,22 @@ const filtersSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-        setDates(state, action: PayloadAction<DateRange<Dayjs>>) {
-            const [startDate, endDate] = action.payload;
-            state["primary_release_date.gte"] = startDate ? startDate.format('YYYY-MM-DD') : '';
-            state["primary_release_date.lte"] = endDate ? endDate.format('YYYY-MM-DD') : '';
-        },
-        setGenres(state, action: PayloadAction<string[]>){
-            if(action.payload.length > 0){
-                console.log(`SET GENRES ${action.payload}`);
-                state.with_genres = action.payload.join(',');
+        setFilterYear(state, action: PayloadAction<Dayjs | null>) {
+            if(!action.payload){
+                state.year = null;
+            } else {
+                state.year = action.payload.year();
             }
         },
+        setGenres(state, action: PayloadAction<string[]>){
+            state.with_genres = action.payload.join(',');
+        },
         clearFilters(state){
-            state["primary_release_date.gte"] = '';
-            state["primary_release_date.lte"] = '';
+            state.year = null;
             state.with_genres = '';
         }
     },
 });
 
-export const { setDates, setGenres, clearFilters} = filtersSlice.actions;
+export const { setFilterYear, setGenres, clearFilters} = filtersSlice.actions;
 export default filtersSlice.reducer;

@@ -1,5 +1,4 @@
 export interface Filters {
-    "primary_release_date.gte": string;
-    "primary_release_date.lte": string;
+    year: number | null
     with_genres: string;
 }
