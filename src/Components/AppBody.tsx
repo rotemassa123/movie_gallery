@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import { Box, Grid, Pagination, Button } from '@mui/material';
-import {DateRange, DateRangePicker} from '@mui/x-date-pickers-pro';
+import React, { useEffect, useState } from 'react';
+import { Box, Grid, Pagination, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { DateRange, DateRangePicker } from '@mui/x-date-pickers-pro';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieCard from './MovieCard';
 import { Movie } from "../interfaces/Movie";
@@ -10,12 +10,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { getMovies } from "../helpers/TmdbClient";
 import { setMovies, setTotalPages } from "../reducers/movies.reducer";
-import {clearFilters, setDates} from "../reducers/filters.reducer";
+import { clearFilters, setDates, setGenres } from "../reducers/filters.reducer";
+import { genreMap } from "../fixtures/GenreMap"; // Import the genreMap
 
 const AppBody: React.FC = () => {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPageLocal] = useState<number>(1);
     const [dateRange, setDateRange] = useState<DateRange<Dayjs>>([null, null]);
+    const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
     // Correctly use the root state type
     const movies = useSelector((state: RootState) => state.movie.movies);
@@ -33,56 +35,72 @@ const AppBody: React.FC = () => {
             }
         };
         fetchMovies();
-    }, [dispatch, filters]);
+    }, [dispatch, filters, selectedGenres, currentPage]);
 
     const handlePageChange = async (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPageLocal(value);
-        try {
-            const response = await getMovies(value);
-            dispatch(setMovies(response.results));
-        } catch (error) {
-            console.error('Error fetching movies for page:', value, error);
-        }
     };
 
-    const handleDateRangeChange = async (newValue: DateRange<Dayjs>) => {
-        try {
-            setDateRange(newValue);
-            dispatch(setDates(newValue));
-        } catch (error) {
-            console.error('Error fetching movies for date range:', error);
-        }
+    const handleDateRangeChange = (newValue: DateRange<Dayjs>) => {
+        setDateRange(newValue);
+        dispatch(setDates(newValue));
+    };
+
+    const handleGenreChange = (event: SelectChangeEvent<string[]>) => {
+        const newGenres = event.target.value as string[];
+        setSelectedGenres(newGenres);
+        dispatch(setGenres(newGenres));
     };
 
     const handleClearFilters = () => {
         setDateRange([null, null]);
+        setSelectedGenres([]);
         dispatch(clearFilters());
     };
 
     return (
         <Box>
             <Grid container spacing={2}>
-                <Grid item xs={12} md={2}>
+                <Grid item xs={12} md={2} className='filter-container'>
                     <Box className="column" mb={2}>
-                        {/* Add margin bottom */}
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateRangePicker
                                 value={dateRange}
-                                onChange={(newValue) => handleDateRangeChange(newValue)}
+                                onChange={handleDateRangeChange}
                             />
                         </LocalizationProvider>
+                        <FormControl fullWidth sx={{ mt: 2 }}>
+                            <InputLabel id="genre-select-label">Genres</InputLabel>
+                            <Select
+                                labelId="genre-select-label"
+                                id="genre-select"
+                                multiple
+                                value={selectedGenres}
+                                onChange={handleGenreChange}
+                                renderValue={(selected) => {
+                                    const selectedGenresNames = (selected as string[]).map(id => genreMap[parseInt(id)]);
+                                    return selectedGenresNames.join(', ');
+                                }}
+                            >
+                                {Object.entries(genreMap).map(([id, name]) => (
+                                    <MenuItem key={id} value={id}>
+                                        {name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                         <Button
                             variant="contained"
                             color="primary"
                             onClick={handleClearFilters}
                             fullWidth
-                            sx={{ mt: 2 }} // Add margin top
+                            sx={{ mt: 2 }}
                         >
                             Clear Filters
                         </Button>
                     </Box>
                 </Grid>
-                <Grid item xs={12} md={8}>
+                <Grid item xs={12} md={10}>
                     <Box className="column">
                         {movies.map((movie: Movie, index: number) => (
                             <MovieCard key={index} movie={movie} />
@@ -96,12 +114,6 @@ const AppBody: React.FC = () => {
                             variant="outlined"
                             shape="rounded"
                         />
-                    </Box>
-                </Grid>
-                <Grid item xs={12} md={2}>
-                    <Box className="column" mb={2}>
-                        {/* Add margin bottom */}
-                        Right Column
                     </Box>
                 </Grid>
             </Grid>

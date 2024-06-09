@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Box, Typography, CardMedia } from '@mui/material';
 import { Movie } from '../interfaces/Movie';
 import '../styling/MovieModal.css';
+import {genreMap} from "../fixtures/GenreMap";
 
 interface MovieModalProps {
     isOpen: boolean;
@@ -16,13 +17,13 @@ const MovieModal: React.FC<MovieModalProps> = ({ isOpen, handleClose, movie }) =
         overview,
         release_date,
         vote_average,
-        genres,
-        budget,
-        revenue,
-        runtime
+        genre_ids,
+        original_language
     } = movie;
 
     const releaseYear = release_date ? new Date(release_date).getFullYear() : 'N/A';
+
+    const genres = genre_ids?.map(id => genreMap[id]) || [];
 
     return (
         <Modal open={isOpen} onClose={handleClose}>
@@ -44,20 +45,16 @@ const MovieModal: React.FC<MovieModalProps> = ({ isOpen, handleClose, movie }) =
                 <Typography variant="body1" gutterBottom>
                     Year: {releaseYear}
                 </Typography>
-                {genres && genres.length > 0 && (
+                {genres.length > 0 && (
                     <Typography variant="body1" gutterBottom>
                         Genres: {genres.join(', ')}
                     </Typography>
                 )}
-                <Typography variant="body1" gutterBottom>
-                    Budget: ${budget?.toLocaleString() || 'N/A'}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    Revenue: ${revenue?.toLocaleString() || 'N/A'}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    Runtime: {runtime ? `${runtime} minutes` : 'N/A'}
-                </Typography>
+                {original_language && (
+                    <Typography variant="body1" gutterBottom>
+                        Language: {original_language.toUpperCase()}
+                    </Typography>
+                )}
                 <Typography variant="body2" component="p">
                     {overview}
                 </Typography>
