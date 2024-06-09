@@ -11,7 +11,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { getMovies } from "../helpers/TmdbClient";
 import { setMovies, setTotalPages } from "../reducers/movies.reducer";
 import { clearFilters, setDates, setGenres } from "../reducers/filters.reducer";
-import { genreMap } from "../fixtures/GenreMap"; // Import the genreMap
+import { genreMap } from "../fixtures/GenreMap";
+import '../styling/AppBody.css';
 
 const AppBody: React.FC = () => {
     const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const AppBody: React.FC = () => {
         <Box>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={2} className='filter-container'>
-                    <Box className="column" mb={2}>
+                    <Box className="filters" mb={2}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateRangePicker
                                 value={dateRange}

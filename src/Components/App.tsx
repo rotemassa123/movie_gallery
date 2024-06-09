@@ -6,6 +6,7 @@ import AppBody from './AppBody';
 import { Box } from '@mui/material';
 import { setMovies, setTotalPages } from '../reducers/movies.reducer';
 import { getMovies } from '../helpers/TmdbClient';
+import '../styling/App.css'
 
 const App: React.FC = () => {
     const dispatch = useDispatch();

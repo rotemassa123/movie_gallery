@@ -1,13 +1,8 @@
-.main-container {
-    flex-grow: 1;
-    margin-top: 16px;
-}
-
-.grey-spacer {
-    height: 20px; /* Adjust height as needed */
-    background-color: #f0f0f0; /* Grey color */
-}
-
 .MuiPaginationItem-root {
     padding: 6px 8px; /* Adjust as needed */
+}
+
+.filters {
+    margin-top: 16px;
+    margin-left: 4px;
 }
