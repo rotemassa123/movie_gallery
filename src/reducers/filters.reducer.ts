@@ -1,14 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {Dayjs} from "dayjs";
 import {DateRange} from "@mui/x-date-pickers-pro";
+import {Filters} from "../interfaces/Filters";
 
-export interface FiltersState {
-    "primary_release_date.gte": string;
-    "primary_release_date.lte": string;
-    with_genres: string;
-}
-
-const initialState: Partial<FiltersState> = {
+const initialState: Partial<Filters> = {
     "primary_release_date.gte": '',
     "primary_release_date.lte": '',
     with_genres: ''

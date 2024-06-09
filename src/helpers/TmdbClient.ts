@@ -12,11 +12,11 @@ const tmdbApiClient = axios.create({
     },
 });
 
-export async function getMovies(page: number = 1, filters?: any) {
+export async function getMovies(page: number = 1, filters?: Partial<Filters>) {
     try {
         let response;
         const params: Record<string, any> = { page, ...filters };
-        const areFiltersOn = Object.values(filters).some(value => Boolean(value));
+        const areFiltersOn = filters && Object.values(filters).some(value => Boolean(value));
         if(!areFiltersOn){
             response = await tmdbApiClient.get('/movie/top_rated', { params });
         } else {
