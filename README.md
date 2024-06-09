@@ -63,3 +63,4 @@ dear reader. there are some deviations and features i would have liked to add to
 4. additional movie filters
 5. UI improvements and feature addition (i.e sort movies by XYZ params)
 
+Thank you for reading thus far and I hope u enjoy the application
