@@ -1,15 +1,56 @@
-# Getting Started with Create React App
+# Movie Gallery App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to Movie Gallery, a React application for exploring and discovering movies!
 
-## Available Scripts
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Prerequisites](#prerequisites)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Building the Application](#building-the-application)
+7. [Deployment](#deployment)
+8. [Contributing](#contributing)
 
-In the project directory, you can run:
+## Introduction
+Movie Explorer is a web application built with React that allows users to explore and discover movies. It utilizes The Movie Database (TMDb) API to fetch movie data, providing users with a wide range of features such as filtering movies by genre and release year, as well as pagination for browsing large collections of movies.
 
-### `npm start`
+## Features
+- Browse popular movies
+- Filter movies by genre
+- Filter movies by release year
+- Pagination support for browsing large movie collections
+- Clear filters functionality
+- Responsive design for use on various devices
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Prerequisites
+Before you begin, ensure you have met the following requirements:
+- Node.js installed on your local machine
+- Access to the internet to fetch movie data from TMDb API
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation
+To install Movie Explorer, follow these steps:
+1. Clone the repository to your local machine using Git: https://github.com/rotemassa123/movie_gallery.git
+2. Navigate to the project directory: cd movie-gallery
+3. Install the necessary dependencies: npm install
+
+## Usage
+To run Movie Explorer locally, follow these steps:
+1. Start the development server: npm start
+2. Open your web browser and navigate to http://localhost:3000 to view the application.
+
+## Building the Application
+To build the production-ready version of Movie Gallery, follow these steps:
+1. Build the application: npm run build
+2. The built files will be located in the build directory.
+
+## Deployment
+You can deploy Movie Explorer to various hosting platforms such as GitHub Pages, Netlify, or Vercel. Follow the deployment instructions provided by your chosen hosting service.
+
+## Contributing
+If you would like to contribute to Movie Explorer, please follow these guidelines:
+1. Fork the repository and create your branch (`git checkout -b feature/myfeature`).
+2. Commit your changes (`git commit -am 'Add my feature'`).
+3. Push to the branch (`git push origin feature/myfeature`).
+4. Create a new Pull Request.
+
