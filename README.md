@@ -22,7 +22,6 @@ Movie Gallery is a web application built with React that allows users to explore
 - Filter movies by release year
 - Pagination support for browsing large movie collections
 - Clear filters functionality
-- Responsive design for use on various devices
 
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
